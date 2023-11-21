@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LoadingBar from '@root/src/shared/components/LoadingBar';
+import LoadingBar from "@root/src/shared/components/LoadingBar";
 
 export default function App() {
   const [modalData, setModalData] = useState<string>(null);
@@ -11,7 +11,7 @@ export default function App() {
     if (data && data.length > 0) {
       setModalData(data);
     } else {
-      setModalData('');
+      setModalData("");
     }
   });
 
@@ -20,24 +20,6 @@ export default function App() {
   };
   return loading ? (
     <div
-      style={{
-        position: 'fixed',
-        zIndex: 100000,
-        backgroundColor: 'rgba(0,0,0,0.4)',
-        left: 0,
-        top: 0,
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        color: 'white',
-        alignItems: 'center',
-      }}>
-      <LoadingBar displayText="Fetching Data" />
-    </div>
-  ) : (
-    modalData && (<div
-      className="coverletter-modal-container"
       style={{
         position: "fixed",
         zIndex: 100000,
@@ -48,73 +30,94 @@ export default function App() {
         height: "100vh",
         display: "flex",
         justifyContent: "center",
+        color: "white",
         alignItems: "center",
       }}
     >
+      <LoadingBar displayText="Fetching Data" />
+    </div>
+  ) : (
+    modalData && (
       <div
-        className="coverletter-modal"
+        className="coverletter-modal-container"
         style={{
-          backgroundColor: "white",
-          height: "80vh",
-          width: "80vw",
-          borderRadius: "15px",
-          padding: "20px",
+          position: "fixed",
+          zIndex: 100000,
+          backgroundColor: "rgba(0,0,0,0.4)",
+          left: 0,
+          top: 0,
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <div
-          className="coverletter-modal-header"
+          className="coverletter-modal"
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            paddingBottom: "10px",
-            alignItems: "center",
+            backgroundColor: "white",
+            height: "80vh",
+            width: "80vw",
+            borderRadius: "15px",
+            padding: "20px",
           }}
         >
-          <h1
+          <div
+            className="coverletter-modal-header"
             style={{
-              fontSize: "25px",
-              fontWeight: "500",
+              display: "flex",
+              justifyContent: "space-between",
+              paddingBottom: "10px",
+              alignItems: "center",
             }}
           >
-            Cover Letter
-          </h1>
-          <button
-            onClick={dismissModal}
-            style={{
-              fontSize: "30px",
-              border: "none",
-              outline: "none",
-              background: "transparent",
-              cursor: "pointer",
-            }}
-          >
-            X
-          </button>
-        </div>
-        <div
-          className="coverletter-modal-content"
-          style={{ overflow: "auto" }}
-        >
-          {modalData !== "" ? (
-            <pre>{modalData}</pre>
-          ) : (
-            <span
+            <h1
               style={{
-                display: "flex",
-                width: "100%",
-                height: "100%",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 24,
-                borderTop: "1px solid darkgray",
+                fontSize: "25px",
+                fontWeight: "500",
               }}
             >
-              No Cover letter to display
-            </span>
-          )}
+              Cover Letter
+            </h1>
+            <button
+              onClick={dismissModal}
+              style={{
+                fontSize: "30px",
+                border: "none",
+                outline: "none",
+                background: "transparent",
+                cursor: "pointer",
+              }}
+            >
+              X
+            </button>
+          </div>
+          <div
+            className="coverletter-modal-content"
+            style={{ overflow: "auto", height: "93%" }}
+          >
+            {modalData !== "" ? (
+              <pre>{modalData}</pre>
+            ) : (
+              <span
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  height: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 24,
+                  borderTop: "1px solid darkgray",
+                }}
+              >
+                No Cover letter to display
+              </span>
+            )}
+          </div>
+          <div className="coverletter-modal-footer"></div>
         </div>
-        <div className="coverletter-modal-footer"></div>
       </div>
-    </div>)
+    )
   );
 }
