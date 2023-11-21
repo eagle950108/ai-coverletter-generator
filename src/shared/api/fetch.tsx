@@ -1,4 +1,4 @@
-import { BASE_URL } from '../utils/constants';
+import { API_KEY } from '../utils/constants';
 
 export interface MAxiosCustomConfig {
   // custom config to add
@@ -11,19 +11,18 @@ export interface MAxiosRequestConfig extends RequestInit {
 async function fetchWithAuthorization(url: string, config?: MAxiosRequestConfig) {
   const headers = new Headers(config?.headers);
   headers.set('Content-Type', 'application/json');
+  headers.append('Authorization', `Bearer ${API_KEY}`);
   const requestOptions: RequestInit = {
     method: config?.method || 'GET',
     headers: headers,
     body: config?.body,
   };
   try {
-    const result = await fetch(BASE_URL + url, requestOptions);
+    const result = await fetch(url, requestOptions);
     const data = await result.json();
     return {
-      status: result.status,
-      statusText: result.statusText,
       ok: result.ok,
-      data: data,
+      data: data.choices[0].message.content,
     };
   } catch (error) {
     return {
